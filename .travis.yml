@@ -1,0 +1,30 @@
+language: php
+sudo: false
+
+php:
+  - 5.6
+  - 7.0
+
+cache:
+  directories:
+    - ~/.composer/cache
+    - ~/composer
+
+matrix:
+  fast_finish: true
+
+notifications:
+  email: false
+
+before_install:
+  - composer config -g github-oauth.github.com $CI_USER_TOKEN
+
+install:
+  - composer install --no-progress --prefer-dist
+
+script:
+  - phpunit -c phpunit.xml.dist --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
