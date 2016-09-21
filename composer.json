@@ -1,0 +1,36 @@
+{
+  "name": "toothless/lazy-image-bundle",
+  "description": "Allows to lazy load an image",
+  "keywords": [
+    "lazy",
+    "load",
+    "image",
+    "thumbnail"
+  ],
+  "type": "symfony-bundle",
+  "require": {
+    "php": "^5.6||^7.0",
+    "toothless/tiny-image": "~1.0",
+    "symfony/http-kernel": "*",
+    "symfony/dependency-injection": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.5.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Clement MICHELET",
+      "role": "owner"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/clement-michelet/lazy-image-bundle/issues",
+    "source": "https://github.com/clement-michelet/lazy-image-bundle"
+  },
+  "autoload": {
+    "psr-4": {
+      "Toothless\\LazyImageBundle\\": ""
+    }
+  }
+}
