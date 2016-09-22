@@ -1,0 +1,6 @@
+parameters:
+  toothless.lazy_image.converter_manager.class: Toothless\TinyImage\Converter\ConverterManager
+
+services:
+  toothless.lazy_image.converter_manager:
+    class: "%toothless.lazy_image.converter_manager.class%"
