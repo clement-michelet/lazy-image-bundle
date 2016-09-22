@@ -1,16 +1,15 @@
 build:
     environment:
         php: '5.6'
-    dependencies:
-        override:
-            - 'ls'
     tests:
         override:
-            - 'ls'
+            -
+                command: 'vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=my-coverage-file'
+                coverage:
+                    file: 'my-coverage-file'
+                    format: 'php-clover'
 
 filter:
-    paths:
-        - ./*
     excluded_paths:
         - Tests/*
         - vendor/*
@@ -28,11 +27,9 @@ tools:
     php_mess_detector: true
     php_pdepend: true
     php_analyzer: true
+    php_code_coverage: true
     sensiolabs_security_checker: true
     php_code_sniffer:
         enabled: true
         config:
             standard: PSR2
-    external_code_coverage:
-        timeout: 120
-        runs: 2
