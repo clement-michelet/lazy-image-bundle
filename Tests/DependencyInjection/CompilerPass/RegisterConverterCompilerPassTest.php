@@ -61,6 +61,52 @@ class RegisterConverterCompilerPassTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $id
+     * @param array  $attributes
+     * @param string $expectedName
+     *
+     * @dataProvider provideProcessWillAddMethodCallWithExpectedName
+     */
+    public function testProcessWillAddMethodCallWithExpectedName($id, array $attributes, $expectedName)
+    {
+        $this->container->method('hasDefinition')->with('toothless.lazy_image.converter_manager')->willReturn(true);
+        $this->container->method('findTaggedServiceIds')
+            ->with('toothless.lazy_image.converter')
+            ->willReturn(
+                [
+                    $id => [$attributes],
+                ]
+            );
+
+        $this->definition->expects($this->once())
+            ->method('addMethodCall')
+            ->with(
+                'addConverter',
+                $this->callback(
+                    function ($subject) use ($expectedName) {
+                        return is_array($subject) && $subject[0] === $expectedName && $subject[1] instanceof Reference;
+                    }
+                )
+            );
+
+        $this->pass->process($this->container);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideProcessWillAddMethodCallWithExpectedName()
+    {
+        $id = 'service_foo';
+        $alias = 'service_bar';
+
+        return [
+            [$id, [], $id],
+            [$id, ['alias' => $alias], $alias],
+        ];
+    }
+
+    /**
      * @param array $services
      * @param int   $expectedAddMethodCall
      *
