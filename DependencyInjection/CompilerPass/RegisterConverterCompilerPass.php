@@ -30,7 +30,8 @@ class RegisterConverterCompilerPass implements CompilerPassInterface
 
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
-                $definition->addMethodCall('addConverter', [$id, new Reference($id)]);
+                $name = isset($attributes['alias']) ? $attributes['alias'] : $id;
+                $definition->addMethodCall('addConverter', [$name, new Reference($id)]);
             }
         }
     }
